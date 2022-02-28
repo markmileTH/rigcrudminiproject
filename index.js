@@ -112,12 +112,12 @@ router.put('/user', (req, res) => {
 })
 
 router.delete('/delete', (req, res) => {
-     let idPharmacy = req.body.idPharmacy;
-     if (!idPharmacy) {
+     let userID = req.body.userID;
+     if (!userID) {
           res.status(400).send({ error: true, message: "Please provide pharmacy id" })
      } else {
-          let sql = "DELETE FROM pharmacy WHERE idPharmacy =? "
-          db.query(sql, [idPharmacy], (error, results, fields) => {
+          let sql = "DELETE FROM user WHERE idPharmacy =? "
+          db.query(sql, [userID], (error, results, fields) => {
                if (error) throw error;
                let message = ""
                if (results.affectedRows === 0) {
