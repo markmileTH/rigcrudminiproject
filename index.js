@@ -51,14 +51,14 @@ router.get('/user', (req, res) => {
 })
 
 router.post('/user', (req, res) => {
-     let username = req.body.validationCustom01;
-     let password = req.body.validationCustom02;
-     let gmail = req.body.validationCustom03;
-     let phoneNumber = req.body.validationCustom04;
+     let username = req.body.username;
+     let password = req.body.password;
+     let gmail = req.body.gmail;
+     let phoneNumber = req.body.phoneNumber;
      if (!username || !password || !gmail || !phoneNumber) {
           res.status(400).send({ error: true, message: "Please provide username,password,phonenumber" })
      } else {
-          let sql = "INSERT INTO user (u_name,p_ass,g_mail,p_hone) VALUES (?,?,?,?)"
+          let sql = "INSERT INTO user (username,password,gmail,phoneNumber) VALUES (?,?,?,?)"
           db.query(sql, [username,password,gmail,phoneNumber], (error, results, fields) => {
                if (error) throw error;
                res.send({ error: false, data: results, message: "Pharmacy successfully added." })
@@ -88,15 +88,15 @@ router.get('/user/:id', (req, res) => {
 
 router.put('/user', (req, res) => {
      let userID = req.body.userID;
-     let username = req.body.u_name;
-     let password = req.body.p_ass;
-     let gmail = req.body.g_mail;
-     let phoneNumber = req.body.p_hone
+     let username = req.body.username;
+     let password = req.body.password;
+     let gmail = req.body.gmail;
+     let phoneNumber = req.body.phoneNumber
      
      if (!userID || !username || !password || !gmail ||!phoneNumber ) {
           res.status(400).send({ error: true, message: "Please provide idPharmacy,PharmacyName,PharmacyType,Price " })
      } else {
-          let sql = "UPDATE user SET u_name =?, p_ass =? ,g_mail =?, p_hone WHERE userID =? "
+          let sql = "UPDATE user SET username =?, password =? ,gmail =?, phoneNumber WHERE userID =? "
           db.query(sql, [username,password,gmail,phoneNumber,userID], (error, results, fields) => {
                if (error) throw error;
                let message = ""
@@ -114,9 +114,9 @@ router.put('/user', (req, res) => {
 router.delete('/delete', (req, res) => {
      let userID = req.body.userID;
      if (!userID) {
-          res.status(400).send({ error: true, message: "Please provide pharmacy id" })
+          res.status(400).send({ error: true, message: "Please provide user id" })
      } else {
-          let sql = "DELETE FROM user WHERE idPharmacy =? "
+          let sql = "DELETE FROM user WHERE user_ID =? "
           db.query(sql, [userID], (error, results, fields) => {
                if (error) throw error;
                let message = ""
