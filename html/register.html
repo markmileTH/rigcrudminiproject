@@ -80,7 +80,7 @@
                             count--;
                             console.log(count);
                             if (count == 0) {
-                                location.href = "/index_app.html"
+                                location.href = "/index.html"
                                 clearInterval(timerId);
                             }
                         }, 1000);
@@ -110,7 +110,7 @@
     })()
 
 
-    
+
 
 
     function checkValueInfield() {
@@ -156,10 +156,17 @@
         })()
     }
 
+
+    function getuserRegister(){
+         $.getJSON('http://localhost:3011/user/')
+    }
+
+
     $(() => {
         checkValueInfield();
 
     })
+
 
 
 </script>
