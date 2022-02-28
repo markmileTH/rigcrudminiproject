@@ -51,34 +51,34 @@ router.get('/user', (req, res) => {
 })
 
 router.post('/user', (req, res) => {
-     let username = req.body.PharmacyName;
-     let password = req.body.PharmacyType;
-     let gmail = req.body.Price;
-     let phonenumber = req.body.phonenumber
-     if (!PharmacyName || !PharmacyType || !Price) {
-          res.status(400).send({ error: true, message: "Please provide PharmacyName,PharmacyType,Price" })
+     let username = req.body.u_name;
+     let password = req.body.p_ass;
+     let gmail = req.body.g_mail;
+     let phoneNumber = req.body.p_hone
+     if (!username || !password || !gmail || !phoneNumber) {
+          res.status(400).send({ error: true, message: "Please provide username,password,phonenumber" })
      } else {
-          let sql = "INSERT INTO pharmacy (PharmacyName,PharmacyType,Price) VALUES (?,?,?)"
-          db.query(sql, [PharmacyName,PharmacyType,Price], (error, results, fields) => {
+          let sql = "INSERT INTO user (u_name,p_ass,g_mail,p_hone) VALUES (?,?,?,?)"
+          db.query(sql, [username,password,gmail,phoneNumber], (error, results, fields) => {
                if (error) throw error;
                res.send({ error: false, data: results, message: "Pharmacy successfully added." })
           })
      }
 })
 
-router.get('/pharmacy/:id', (req, res) => {
+router.get('/user/:id', (req, res) => {
      let id = req.params.id;
      if (!id) {
-          res.status(400).send({ error: true, message: "Please provide Pharmacy id." })
+          res.status(400).send({ error: true, message: "Please provide user id." })
      } else {
-          let sql = "SELECT * FROM pharmacy where idPharmacy = ?"
+          let sql = "SELECT * FROM user where userID = ?"
           db.query(sql, id, (error, results, fields) => {
                let message = ""
                if (results === undefined || results.length == 0) {
-                    message = "Pharmacy not found"
+                    message = "user not found"
                     res.send({ error: false, data: results, message: message })
                } else {
-                    message = "Successfully retieved pharmacy data"
+                    message = "Successfully retieved user data"
                     res.send({ error: false, data: results[0], message: message })
                }
 
@@ -86,17 +86,18 @@ router.get('/pharmacy/:id', (req, res) => {
      }
 })
 
-router.put('/pharmacy', (req, res) => {
-     let idPharmacy = req.body.idPharmacy;
-     let PharmacyName = req.body.PharmacyName;
-     let PharmacyType = req.body.PharmacyType;
-     let Price = req.body.Price;
+router.put('/user', (req, res) => {
+     let userID = req.body.userID;
+     let username = req.body.u_name;
+     let password = req.body.p_ass;
+     let gmail = req.body.g_mail;
+     let phoneNumber = req.body.p_hone
      
-     if (!idPharmacy || !PharmacyName || !PharmacyType || !Price ) {
+     if (!userID || !username || !password || !gmail ||!phoneNumber ) {
           res.status(400).send({ error: true, message: "Please provide idPharmacy,PharmacyName,PharmacyType,Price " })
      } else {
-          let sql = "UPDATE pharmacy SET PharmacyName =?, PharmacyType =? ,Price =? WHERE idPharmacy =? "
-          db.query(sql, [PharmacyName,PharmacyType,Price,idPharmacy], (error, results, fields) => {
+          let sql = "UPDATE user SET u_name =?, p_ass =? ,g_mail =?, p_hone WHERE userID =? "
+          db.query(sql, [username,password,gmail,phoneNumber,userID], (error, results, fields) => {
                if (error) throw error;
                let message = ""
                if (results.changedRows === 0) {
@@ -110,7 +111,7 @@ router.put('/pharmacy', (req, res) => {
 
 })
 
-router.delete('/pharmacy', (req, res) => {
+router.delete('/delete', (req, res) => {
      let idPharmacy = req.body.idPharmacy;
      if (!idPharmacy) {
           res.status(400).send({ error: true, message: "Please provide pharmacy id" })
