@@ -51,10 +51,10 @@ router.get('/user', (req, res) => {
 })
 
 router.post('/user', (req, res) => {
-     let username = req.body.u_name;
-     let password = req.body.p_ass;
-     let gmail = req.body.g_mail;
-     let phoneNumber = req.body.p_hone
+     let username = req.body.validationCustom01;
+     let password = req.body.validationCustom02;
+     let gmail = req.body.validationCustom03;
+     let phoneNumber = req.body.validationCustom04;
      if (!username || !password || !gmail || !phoneNumber) {
           res.status(400).send({ error: true, message: "Please provide username,password,phonenumber" })
      } else {

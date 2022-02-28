@@ -25,7 +25,7 @@
                 <div class="mb-4 mt-3">
                     <h2 class="text-warning">Register</h2>
                 </div>
-                <form class="row g-3 needs-validation" novalidate>
+                <form class="row g-3 needs-validation" novalidate action="POST">
                     <div class="mb-3">
                         <label for="validationCustom01" class="form-label text-white">UseName</label>
                         <input type="text" class="form-control" id="validationCustom01" placeholder="usename" required>
@@ -60,7 +60,7 @@
                     </div>
                     <a href="#"> <button class="btn btn-success px-5  mx-2 my-2" type="submit">Submit</button> </a>
                 </form>
-                <a href="index_app.html"> <button class="btn btn-outline-dark text-white px-5 mx-2 my-2">Cancel</button>
+                <a href="/html/index.html"> <button class="btn btn-outline-dark text-white px-5 mx-2 my-2">Cancel</button>
                 </a>
             </div>
         </div>
@@ -80,7 +80,7 @@
                             count--;
                             console.log(count);
                             if (count == 0) {
-                                location.href = "/index.html"
+                                location.href = "/html/index.html"
                                 clearInterval(timerId);
                             }
                         }, 1000);
@@ -127,7 +127,7 @@
                                 count--;
                                 console.log(count);
                                 if (count == 0) {
-                                    location.href = "/index_app.html"
+                                    location.href = "/html/index.html"
                                     clearInterval(timerId);
                                 }
                             }, 1000);
@@ -157,9 +157,7 @@
     }
 
 
-    function getuserRegister(){
-         $.getJSON('http://localhost:3011/user/')
-    }
+    
 
 
     $(() => {
