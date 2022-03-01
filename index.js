@@ -129,24 +129,24 @@ router.post('/user', (req, res) => {
       }
  })
 
-// router.delete('/delete', (req, res) => {
-//      let userID = req.body.userID;
-//      if (!userID) {
-//           res.status(400).send({ error: true, message: "Please provide user id" })
-//      } else {
-//           let sql = "DELETE FROM user HWERE user_ID =? "
-//           db.query(sql, [userID], (error, results, fields) => {
-//                if (error) throw error;
-//                let message = ""
-//                if (results.affectedRows === 0) {
-//                     message = "User not found."
-//                } else {
-//                     message = "Successfully deleted user data."
-//                }
-//                res.send({ error: false, data: results, message: message })
-//           })
-//      }
-// })
+ router.delete('/delete', (req, res) => {
+      let userID = req.body.userID;
+      if (!userID) {
+           res.status(400).send({ error: true, message: "Please provide user id" })
+      } else {
+           let sql = "DELETE FROM user WHERE userID =? "
+           db.query(sql, [userID], (error, results, fields) => {
+                if (error) throw error;
+                let message = ""
+                if (results.affectedRows === 0) {
+                     message = "User not found."
+                } else {
+                     message = "Successfully deleted user data."
+                }
+                res.send({ error: false, data: results, message: message })
+           })
+      }
+ })
 
 app.use(router)
 app.listen(port, () => {
