@@ -105,17 +105,17 @@ router.post('/user', (req, res) => {
            }})
       }
  })
-// FIX
+
  router.put('/user', (req, res) => {
       let userID = req.body.userID;
       let username = req.body.username;
       let password = req.body.password;
       let gmail = req.body.gmail;
-      let phoneNumber = req.body.phoneNumbe
+      let phoneNumber = req.body.phoneNumber;
       if (!userID || !username || !password || !gmail ||!phoneNumber ) {
            res.status(400).send({ error: true, message: "Please provide userID,username,password,gmail,phoneNumber " })
       } else {
-           let sql = "UPDATE user SET username =?, password =? ,gmail =?, phoneNumber WHERE userID =? "
+           let sql = "UPDATE user SET username =?, password =? ,gmail =?, phoneNumber=? WHERE userID =? "
            db.query(sql, [username,password,gmail,phoneNumber,userID], (error, results, fields) => {
                 if (error) throw error;
                 let message = ""
