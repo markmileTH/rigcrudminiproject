@@ -151,29 +151,6 @@ router.put('/user', (req, res) => {
 }
  })
 
- router.put('/user', (req, res) => {
-      let userID = req.body.userID;
-      let username = req.body.username;
-      let password = req.body.password;
-      let gmail = req.body.gmail;
-      let phoneNumber = req.body.phoneNumber;
-      if (!userID || !username || !password || !gmail ||!phoneNumber ) {
-           res.status(400).send({ error: true, message: "Please provide userID,username,password,gmail,phoneNumber " })
-      } else {
-           let sql = "UPDATE user SET username =?, password =? ,gmail =?, phoneNumber=? WHERE userID =? "
-           db.query(sql, [username,password,gmail,phoneNumber,userID], (error, results, fields) => {
-                if (error) throw error;
-                let message = ""
-                if (results.changedRows === 0) {
-                     message = " not found or data is same"
-                } else {
-                     message = "Successfully updated user data"
-                }
-                res.status(201).send({ error: false, data: results, message: message })
-           })
-      }
- })
-
  router.delete('/delete', (req, res) => {
       let userID = req.body.userID;
       if (!userID) {
@@ -192,24 +169,6 @@ router.put('/user', (req, res) => {
            })
       }
  })
-router.delete('/delete', (req, res) => {
-     let userID = req.body.userID;
-     if (!userID) {
-          res.status(400).send({ error: true, message: "Please provide user id" })
-     } else {
-          let sql = "DELETE FROM user WHERE userID =? "
-          db.query(sql, [userID], (error, results, fields) => {
-               if (error) throw error;
-               let message = ""
-               if (results.affectedRows === 0) {
-                    message = "User not found."
-               } else {
-                    message = "Successfully deleted user data."
-               }
-               res.send({ error: false, data: results, message: message })
-          })
-     }
-})
 
 app.use(router)
 app.listen(port, () => {
