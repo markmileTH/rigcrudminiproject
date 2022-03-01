@@ -82,7 +82,7 @@ router.post('/user', (req, res) => {
           let sql = "INSERT INTO user (username,password,gmail,phoneNumber) VALUES (?,?,?,?)"
           db.query(sql, [username,password,gmail,phoneNumber], (error, results, fields) => {
                if (error) throw error;
-               res.send({ error: false, data: results, message: "Pharmacy successfully added." })
+               res.status(201).send({ error: false, data: results, message: "Pharmacy successfully added." })
           })
      }
 })
@@ -124,7 +124,7 @@ router.post('/user', (req, res) => {
                 } else {
                      message = "Successfully updated user data"
                 }
-                res.send({ error: false, data: results, message: message })
+                res.status(201).send({ error: false, data: results, message: message })
            })
       }
  })
@@ -143,7 +143,7 @@ router.post('/user', (req, res) => {
                 } else {
                      message = "Successfully deleted user data."
                 }
-                res.send({ error: false, data: results, message: message })
+                res.status(202).send({ error: false, data: results, message: message })
            })
       }
  })
