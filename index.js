@@ -151,7 +151,6 @@ router.put('/user', (req, res) => {
 }
  })
 
-<<<<<<< HEAD
  router.put('/user', (req, res) => {
       let userID = req.body.userID;
       let username = req.body.username;
@@ -193,7 +192,6 @@ router.put('/user', (req, res) => {
            })
       }
  })
-=======
 router.delete('/delete', (req, res) => {
      let userID = req.body.userID;
      if (!userID) {
@@ -212,7 +210,6 @@ router.delete('/delete', (req, res) => {
           })
      }
 })
->>>>>>> 4804504bb43f6db94e818ce6f941d118418a537b
 
 app.use(router)
 app.listen(port, () => {
