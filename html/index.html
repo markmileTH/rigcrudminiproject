@@ -28,8 +28,8 @@
                     <h2 class="text-center text-white mb-4" > Coffemaid </h2>
                     <form class="row g-3 needs-validation" novalidate>
                         <div class="mb-1">
-                            <label for="validationCustom01" class="form-label text-white">UseName</label>
-                            <input type="text" class="form-control" id="validationCustom01" placeholder="usename"
+                            <label for="username" class="form-label text-white">UseName</label>
+                            <input type="text" class="form-control" id="username" placeholder="usename"
                                 required>
                         </div>
                         <div class="mb-3">
@@ -41,7 +41,7 @@
                             </div>
                         </div>
                         <div>
-                            <a href="#"> <button class="btn btn-primary rounded"
+                            <a href="้home"> <button class="btn btn-primary rounded"
                                     style="width: 130px;" >Login</button> </a>
                         </div>
                     </form>
@@ -58,7 +58,7 @@
                         role="button"><i class="fab fa-google me-2"></i>Gmail</a>
                 </div>
                 <div class="my-4">
-                    <a href="register.html" class="text-body text-decoration-none">
+                    <a href="register" class="text-body text-decoration-none">
                         <h5 class="">Register</h5>
                     </a>
                 </div>
@@ -75,39 +75,50 @@
                 form.addEventListener('submit', function (event) {
                     if (form.checkValidity()) {
                         event.preventDefault()
-                        let count = 2;
-                        let timerId = setInterval(() => {
-                            count--;
-                            console.log(count);
-                            if (count == 0) {
-                                location.href = "/home.html"
-                                clearInterval(timerId);
-                            }
-                        }, 1000)
-                        let timerInterval
-                        Swal.fire({
-                            title: 'Coffemaid',
-                            html: 'ยินดีต้อนรับเข้าสู่ระบบ',
-                            color: 'rgb(255, 255, 255)',
-                            background: 'rgb(123, 128, 138) url(/images/trees.png)',
-                            border: 'rgb(0, 0, 0)',
-                            backdrop: ` rgb(163, 153, 140,0.9)`,
-                            timer: 2000,
-                            timerProgressBar: true,
-                            didOpen: () => {
-                                Swal.showLoading()
-                                const b = Swal.getHtmlContainer().querySelector('b')
-                                timerInterval = setInterval(() => {
-                                    b.textContent = Swal.getTimerLeft()
-                                }, 1000)
-                            },
-                            willClose: () => {
-                                clearInterval(timerInterval)
-                            }
-                        }).then((result) => {
-                            if (result.dismiss === Swal.DismissReason.timer) {
-                            }
+                        let username = $("#username").val();
+                        $.getJSON('http://localhost:3011/data_name', function (data, textStatus, jqXHR) {
+                            $.each(data.data, function (i, item) {
+                                if (username == item.username) {
+                                    let count = 2;
+                                    let timerId = setInterval(() => {
+                                        count--;
+                                        console.log(count);
+                                        if (count == 0) {
+                                            location.href = "/home"
+                                            clearInterval(timerId);
+                                        }
+                                    }, 1000)
+                                    let timerInterval
+                                    Swal.fire({
+                                        title: 'Coffemaid',
+                                        html: 'ยินดีต้อนรับเข้าสู่ระบบ',
+                                        color: 'rgb(255, 255, 255)',
+                                        background: 'rgb(123, 128, 138) url(/images/trees.png)',
+                                        border: 'rgb(0, 0, 0)',
+                                        backdrop: ` rgb(163, 153, 140,0.9)`,
+                                        timer: 2000,
+                                        timerProgressBar: true,
+                                        didOpen: () => {
+                                            Swal.showLoading()
+                                            const b = Swal.getHtmlContainer().querySelector('b')
+                                            timerInterval = setInterval(() => {
+                                                b.textContent = Swal.getTimerLeft()
+                                            }, 1000)
+                                        },
+                                        willClose: () => {
+                                            clearInterval(timerInterval)
+                                        }
+                                    }).then((result) => {
+                                        if (result.dismiss === Swal.DismissReason.timer) {
+                                        }
+                                    })
+                                } 
+                                else {
+                                    alert("ไม่พบผู้ใช้")
+                                }
+                            })
                         })
+                        
                     }
                     if (!form.checkValidity()) {
                         event.preventDefault()

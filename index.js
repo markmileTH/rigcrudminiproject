@@ -4,9 +4,13 @@ const cors = require('cors');
 
 const router = express.Router()
 const app = express();
+const fs = require('fs');
 app.use(express.urlencoded({ extended: false }))
 const port = 3011;
 
+const home = fs.readFileSync(`${__dirname}/html/home.html`,'utf-8');
+const register = fs.readFileSync(`${__dirname}/html/register.html`,'utf-8');
+const login = fs.readFileSync(`${__dirname}/html/index.html`,'utf-8');
 const corsOptions = {
      //origin: 'http://localhost',
      origin: 'http://127.0.0.1:5500',
@@ -19,8 +23,8 @@ app.use(cors(corsOptions));
 const db = mysql.createConnection({
      host: "127.0.0.1",
      user: "root",
-     port: 3306,
-     password: "PWS@120201a",
+     port: 3303,
+     password: "123456za",
      database: "coffimadeshop",
 });
 
@@ -30,27 +34,26 @@ db.connect((err) => {
      console.log("MySql Connected");
 });
 
-router.get('/', (req, res) => {
-     res.send({
-          error: false,
-          message: "CoffeeMadeShop."
-     })
+router.get('/home', (req, res) => {
+     res.send(home)
 })
 
-router.get('/user', (req, res) => {
-     db.query('SELECT * FROM user', (error, results, fields) => {
-          if (error) throw error;
+router.get('/index', (req, res) => {
+     res.send(login)
+})
+router.get('/data_name', (req, res) => {
+     let sql = "SELECT username FROM `coffimadeshop`.`user`;"
+     db.query(sql, (error, results, fields) => {
           let message = ""
-          if (results === undefined || results.length == 0) {
-               message = "pharmacy table is empty"
-          } else {
-               message = "Successfuly retrieved all user"
-          }
-          res.send({ error: false, data: results, massage: message })
+          message = "ข้อมูล"
+          res.send({ error: false, data: results, message: message })
      })
 })
+router.get('/register', (req, res) => {
+     res.send(register)
+})
 
-router.post('/user', (req, res) => {
+router.post('/register', (req, res) => {
      let username = req.body.username;
      let password = req.body.password;
      let gmail = req.body.gmail;
@@ -83,26 +86,6 @@ router.post('/user', (req, res) => {
           db.query(sql, [username, password, gmail, phoneNumber], (error, results, fields) => {
                if (error) throw error;
                res.status(201).send({ error: false, data: results, message: "Pharmacy successfully added." })
-          })
-     }
-})
-
-router.get('/user/:id', (req, res) => {
-     let id = req.params.id;
-     if (!id) {
-          res.status(400).send({ error: true, message: "Please provide user id." })
-     } else {
-          let sql = "SELECT * FROM user where userID = ?"
-          db.query(sql, id, (error, results, fields) => {
-               let message = ""
-               if (results === undefined || results.length == 0) {
-                    message = "user not found"
-                    res.send({ error: false, data: results, message: message })
-               } else {
-                    message = "Successfully retieved user data"
-                    res.send({ error: false, data: results[0], message: message })
-
-               }
           })
      }
 })

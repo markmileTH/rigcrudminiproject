@@ -27,15 +27,15 @@
                 </div>
                 <form class="row g-3 needs-validation" novalidate action="POST">
                     <div class="mb-3">
-                        <label for="validationCustom01" class="form-label text-white">UseName</label>
-                        <input type="text" class="form-control" id="validationCustom01" placeholder="usename" required>
+                        <label for="username" class="form-label text-white">UseName</label>
+                        <input type="text" class="form-control" id="username" placeholder="usename" required>
                         <div class="invalid-feedback">
                             <p class="fw-bold"> กรุณากรอก UseName </p>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="validationCustom02" class="form-label text-white">Password</label>
-                        <input type="password" class="form-control" id="validationCustom02" placeholder="password"
+                        <label for="password" class="form-label text-white">Password</label>
+                        <input type="password" class="form-control" id="password" placeholder="password"
                             min="6" text="2" required>
                         <input type="password" class="form-control" id="validationCustom02"
                             placeholder="confirm password" required>
@@ -44,15 +44,15 @@
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="validationCustom03" class="form-label text-white">อีเมล</label>
-                        <input type="email" class="form-control" id="validationCustom03" placeholder="E-mail" required>
+                        <label for="gmail" class="form-label text-white">อีเมล</label>
+                        <input type="email" class="form-control" id="gmail" placeholder="E-mail" required>
                         <div class="invalid-feedback">
                             <p class="fw-bold"> กรุณากรอก E-mail โดยมี @gmail.com/@hotmail.com </p>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="validationCustom04" class="form-label text-white">Phone Number</label>
-                        <input type="text" class="form-control" id="validationCustom04" placeholder="0xx-xxxx-xxx"
+                        <label for="phoneNumber" class="form-label text-white">Phone Number</label>
+                        <input type="text" class="form-control" id="phoneNumber" placeholder="0xx-xxxx-xxx"
                             required>
                         <div class="invalid-feedback">
                             <p class="fw-bold"> กรุณากรอกเบอร์โทรศัพท์ </p>
@@ -60,7 +60,7 @@
                     </div>
                     <a href="#"> <button class="btn btn-success px-5  mx-2 my-2" type="submit">Submit</button> </a>
                 </form>
-                <a href="/html/index.html"> <button class="btn btn-outline-dark text-white px-5 mx-2 my-2">Cancel</button>
+                <a href="/index"> <button class="btn btn-outline-dark text-white px-5 mx-2 my-2">Cancel</button>
                 </a>
             </div>
         </div>
@@ -120,8 +120,19 @@
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
+                        let username = $("#username").val();
+                        let password = $("#password").val();
+                        let gmail = $("#gmail").val();
+                        let phoneNumber = $("#phoneNumber").val();
                         if (form.checkValidity()) {
                             event.preventDefault()
+                            $.post("http://localhost:3011/register",
+                            {
+                                username: username,
+                                password: password,
+                                gmail: gmail,
+                                phoneNumber: phoneNumber
+                            });
                             let count = 5;
                             let timerId = setInterval(() => {
                                 count--;
@@ -155,10 +166,6 @@
                 })
         })()
     }
-
-
-    
-
 
     $(() => {
         checkValueInfield();
