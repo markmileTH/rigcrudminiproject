@@ -67,65 +67,58 @@
     </div>
 </body>
 <script>
-    function checkValueInfield() {
-        (function () {
-            'use strict'
-            var forms = document.querySelectorAll('needs-validation')
-            Array.prototype.slice.call(forms)
-                .forEach(function (form) {
-                    form.addEventListener('submit', function (event) {
-                        let username = $("#username").val();
-                        let password = $("#password").val();
-                        let gmail = $("#gmail").val();
-                        let phoneNumber = $("#phoneNumber").val();
-                        if (form.checkValidity()) {
-                            event.preventDefault()
-                            let username = res.username;
-                            console.log(username);
-                            $.post("http://localhost:3011/register",
-                            {
-                                username: username,
-                                password: password,
-                                gmail: gmail,
-                                phoneNumber: phoneNumber
-                            });
-                            let count = 5;
-                            let timerId = setInterval(() => {
-                                count--;
-                                console.log(count);
-                                if (count == 0) {
-                                    location.href = "/"
-                                    clearInterval(timerId);
-                                }
-                            }, 1000);
-                            Swal.fire({
-                                title: 'Coffemaid ยินดีต้อนรับ!',
-                                text: 'สมัครสมาชิกเสร็จสิ้น กำลังกลับสู่หน้า Login',
-                                color: 'rgb(255, 255, 255)',
-                                background: 'rgb(123, 128, 138) url(/images/trees.png)',
-                                border: 'rgb(0, 0, 0)',
-                                backdrop: ` rgb(163, 153, 140,0.9)`,
-                                imageUrl: 'https://www.fontecoffee.com/product_images/uploaded_images/coffee-online-where-to-find-the-freshest-coffee-online-1200x628.png',
-                                imageWidth: 400,
-                                imageHeight: 200,
-                                imageAlt: 'Custom image',
-                                icon: 'success',
-                                showConfirmButton: false,
-                            })
-                        }
-                        if (!form.checkValidity()) {
-                            event.preventDefault()
-                            event.stopPropagation()
-                        }
-                        form.classList.add('was-validated')
-                    }, false)
-                })
-        })()
-    }
-
-    $(() => {
-        checkValueInfield();
-    })
+    (function () {
+        'use strict'
+        var forms = document.querySelectorAll('.needs-validation')
+        Array.prototype.slice.call(forms)
+            .forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    let username = $("#username").val();
+                    let password = $("#password").val();
+                    let gmail = $("#gmail").val();
+                    let phoneNumber = $("#phoneNumber").val();
+                    
+                    
+                    if (form.checkValidity()) {
+                        event.preventDefault()
+                        $.post("http://localhost:3011/register",
+                        {
+                            username: username,
+                            password: password,
+                            gmail: gmail,
+                            phoneNumber: phoneNumber
+                        });
+                        let count = 5;
+                        let timerId = setInterval(() => {
+                            count--;
+                            console.log(count);
+                            if (count == 0) {
+                                location.href = "/"
+                                clearInterval(timerId);
+                            }
+                        }, 1000);
+                        Swal.fire({
+                            title: 'Coffemaid ยินดีต้อนรับ!',
+                            text: 'สมัครสมาชิกเสร็จสิ้น กำลังกลับสู่หน้า Login',
+                            color: 'rgb(255, 255, 255)',
+                            background: 'rgb(123, 128, 138) url(/images/trees.png)',
+                            border: 'rgb(0, 0, 0)',
+                            backdrop: ` rgb(163, 153, 140,0.9)`,
+                            imageUrl: 'https://www.fontecoffee.com/product_images/uploaded_images/coffee-online-where-to-find-the-freshest-coffee-online-1200x628.png',
+                            imageWidth: 400,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+                            icon: 'success',
+                            showConfirmButton: false,
+                        })
+                    }
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+                    form.classList.add('was-validated')
+                }, false)
+            })
+    })()
 </script>
-
 </html>
