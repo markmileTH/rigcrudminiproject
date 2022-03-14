@@ -33,8 +33,8 @@
                                 required>
                         </div>
                         <div class="mb-3">
-                            <label for="validationCustom02" class="form-label text-white">Password</label>
-                            <input type="password" class="form-control" id="validationCustom02" placeholder="password"
+                            <label for="password" class="form-label text-white">Password</label>
+                            <input type="password" class="form-control" id="password" placeholder="password"
                                 min="6" text="2" required>
                             <div class="invalid-feedback">
                                 <p class="fw-bold"> Wrong Username or Password </p>
@@ -76,9 +76,17 @@
                     if (form.checkValidity()) {
                         event.preventDefault()
                         let username = $("#username").val();
+                        let password = $("#password").val();
                         $.getJSON('http://localhost:3011/data_name', function (data, textStatus, jqXHR) {
+                            let correct = 0;
                             $.each(data.data, function (i, item) {
                                 if (username == item.username) {
+                                    if (password == item.password) {
+                                        correct = 1;
+                                    }
+                                }
+                            })
+                            if (correct == 1) {
                                     let count = 2;
                                     let timerId = setInterval(() => {
                                         count--;
@@ -112,11 +120,9 @@
                                         if (result.dismiss === Swal.DismissReason.timer) {
                                         }
                                     })
-                                } 
-                                else {
-                                    alert("ไม่พบผู้ใช้")
-                                }
-                            })
+                            }else{
+                            alert("username หรือ password ไม่ถูกต้อง")
+                            }
                         })
                         
                     }

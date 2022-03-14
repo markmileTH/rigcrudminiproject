@@ -60,63 +60,17 @@
                     </div>
                     <a href="#"> <button class="btn btn-success px-5  mx-2 my-2" type="submit">Submit</button> </a>
                 </form>
-                <a href="/index"> <button class="btn btn-outline-dark text-white px-5 mx-2 my-2">Cancel</button>
+                <a href="/"> <button class="btn btn-outline-dark text-white px-5 mx-2 my-2">Cancel</button>
                 </a>
             </div>
         </div>
     </div>
 </body>
 <script>
-    (function () {
-        'use strict'
-        var forms = document.querySelectorAll('.needs-validation')
-        Array.prototype.slice.call(forms)
-            .forEach(function (form) {
-                form.addEventListener('submit', function (event) {
-                    if (form.checkValidity()) {
-                        event.preventDefault()
-                        let count = 5;
-                        let timerId = setInterval(() => {
-                            count--;
-                            console.log(count);
-                            if (count == 0) {
-                                location.href = "/html/index.html"
-                                clearInterval(timerId);
-                            }
-                        }, 1000);
-                        Swal.fire({
-                            title: 'Coffemaid ยินดีต้อนรับ!',
-                            text: 'สมัครสมาชิกเสร็จสิ้น กำลังกลับสู่หน้า Login',
-                            color: 'rgb(255, 255, 255)',
-                            background: 'rgb(123, 128, 138) url(/images/trees.png)',
-                            border: 'rgb(0, 0, 0)',
-                            backdrop: ` rgb(163, 153, 140,0.9)`,
-                            imageUrl: 'https://fontecoffee.com/product_images/uploaded_images/coffee-online-where-to-find-the-freshest-coffee-online-1200x628.png',
-                            imageWidth: 400,
-                            imageHeight: 200,
-                            imageAlt: 'Custom image',
-                            icon: 'success',
-                            showConfirmButton: false,
-                        })
-                    }
-                    if (!form.checkValidity()) {
-                        event.preventDefault()
-                        event.stopPropagation()
-                        console.log(form);
-                    }
-                    form.classList.add('was-validated')
-                }, false)
-            })
-    })()
-
-
-
-
-
     function checkValueInfield() {
         (function () {
             'use strict'
-            var forms = document.querySelectorAll('.needs-validation')
+            var forms = document.querySelectorAll('needs-validation')
             Array.prototype.slice.call(forms)
                 .forEach(function (form) {
                     form.addEventListener('submit', function (event) {
@@ -126,6 +80,8 @@
                         let phoneNumber = $("#phoneNumber").val();
                         if (form.checkValidity()) {
                             event.preventDefault()
+                            let username = res.username;
+                            console.log(username);
                             $.post("http://localhost:3011/register",
                             {
                                 username: username,
@@ -138,7 +94,7 @@
                                 count--;
                                 console.log(count);
                                 if (count == 0) {
-                                    location.href = "/html/index.html"
+                                    location.href = "/"
                                     clearInterval(timerId);
                                 }
                             }, 1000);
@@ -169,11 +125,7 @@
 
     $(() => {
         checkValueInfield();
-
     })
-
-
-
 </script>
 
 </html>

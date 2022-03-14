@@ -5,6 +5,7 @@ const cors = require('cors');
 const router = express.Router()
 const app = express();
 const fs = require('fs');
+const { log } = require("console");
 app.use(express.urlencoded({ extended: false }))
 const port = 3011;
 
@@ -38,11 +39,11 @@ router.get('/home', (req, res) => {
      res.send(home)
 })
 
-router.get('/index', (req, res) => {
+router.get('/', (req, res) => {
      res.send(login)
 })
 router.get('/data_name', (req, res) => {
-     let sql = "SELECT username FROM `coffimadeshop`.`user`;"
+     let sql = "SELECT username,password FROM `coffimadeshop`.`user`;"
      db.query(sql, (error, results, fields) => {
           let message = ""
           message = "ข้อมูล"
